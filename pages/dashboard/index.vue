@@ -326,14 +326,15 @@ export default {
       this.cleanDash()
 
       if ((this.filter.dateStart == null && this.filter.dateEnd == null) || (this.filter.dateStart != null && this.filter.dateEnd != null)) {        
-        this.dashboard = await this.positionService.dashboard(this.filter)
+        let filters = _.clone(this.filter)
+        this.dashboard = await this.positionService.dashboard(filters)
 
         if (this.dashboard == '') {
             this.cleanDash()
         } else {
-            this.positions = await this.positionService.byFilters(this.filter)
-            this.performanceMonth = await this.positionService.performanceMonth(this.filter)
-            this.profits = await this.positionService.profits(this.filter)
+            this.positions = await this.positionService.byFilters(filters)
+            this.performanceMonth = await this.positionService.performanceMonth(filters)
+            this.profits = await this.positionService.profits(filters)
             this.chartBalance()
         }    
       }
