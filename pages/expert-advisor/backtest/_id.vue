@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col">
-    <Message v-if="$auth.user.status.value != 'ACTIVE'" severity="warn" :closable="false">Ao assinar o plano na plataforma você poderá criar robôs ilimitados com todos os recursos. <nuxt-link class="text-blue-600" to="/payment">Clique aqui</nuxt-link> para assinar o plano.</Message>
     <div class="my-4 p-grid">
       <div class="p-col-12 p-md-6">
         <h3 class="text-gray-700 text-xl font-medium">Backtest de {{ setup.name }}</h3>
@@ -311,7 +310,6 @@
 
 <script>
 import SetupService from "~/service/SetupService.js"
-import SettingService from "~/service/SettingService.js"
 import BacktestService from "~/service/BacktestService.js"
 import _ from "lodash"
 import * as moment from  "moment-timezone"
@@ -322,9 +320,9 @@ export default {
   layout: "app",
   async asyncData({ params, error }) {
     return {
-      ref: params.ref,
+      id: params.id,
       fileBacktest: [],
-      urlUpload: process.env.BASE_API_URL + '/backtest/import-html/' + params.ref,
+      urlUpload: process.env.BASE_API_URL + '/backtest/import-html/' + params.id,
       setup: {name: null},
       backtest: null,
       backtestPositions: [],
@@ -345,32 +343,28 @@ export default {
   },
   setupService: null,
   backtestService: null,
-  settingService: null,
   created() {
     this.setupService = new SetupService(this.$axios, this.$auth)
     this.backtestService = new BacktestService(this.$axios, this.$auth)
-    this.settingService = new SettingService(this.$axios, this.$auth)
   },
   mounted() {
-    this.getSetup(this.ref)
-    this.getBacktest(this.ref)
-    this.getBacktestPositions(this.ref)
-    this.getBacktestPerformanceMonth(this.ref)
-    this.settings();
+    this.getSetup(this.id)
+    this.getBacktest(this.id)
+    this.getBacktestPositions(this.id)
+    this.getBacktestPerformanceMonth(this.id)
   },
   methods: {
     beforeUpload(request) {
       this.$nuxt.$loading.start()
       request.xhr.setRequestHeader('Authorization', this.$auth.getToken('local'))
-      request.xhr.setRequestHeader('tid', this.$auth.user.tid)
       
       return request;
     },
     importBacktest(event) {
       let response = JSON.parse(event.xhr.response)      
       this.backtest = response
-      this.getBacktestPositions(this.ref)
-      this.getBacktestPerformanceMonth(this.ref)
+      this.getBacktestPositions(this.id)
+      this.getBacktestPerformanceMonth(this.id)
       this.getMonteCarlo(this.backtest.id)
       this.$nuxt.$loading.finish()
     },
@@ -379,26 +373,26 @@ export default {
       this.$toast.add({ severity: "error", detail: response.message, life: 3000 })
       this.$nuxt.$loading.finish()
     },
-    async getSetup(ref) {
-      let response = await this.setupService.byRef(ref)
+    async getSetup(id) {
+      let response = await this.setupService.byId(id)
       this.setup = response
     },
-    async getBacktest(ref) {
-      let response = await this.backtestService.bySetupRef(ref)
+    async getBacktest(id) {
+      let response = await this.backtestService.bySetupId(id)
       if (response) {
         this.backtest = response
         this.getMonteCarlo(this.backtest.id)
       }
     },
-    async getBacktestPositions(ref) {
-      let response = await this.backtestService.positionsBySetupRef(ref)
+    async getBacktestPositions(id) {
+      let response = await this.backtestService.positionsBySetupId(id)
       if (response) {
         this.backtestPositions = response.positions
         this.chartBalance()
       }
     },
-    async getBacktestPerformanceMonth(ref) {
-      let response = await this.backtestService.performanceMonthBySetupRef(ref)
+    async getBacktestPerformanceMonth(id) {
+      let response = await this.backtestService.performanceMonthBySetupId(id)
       if (response) {
         this.backtestPerformanceMonth = response.performanceMonth
       }
@@ -407,9 +401,6 @@ export default {
       let response = await this.backtestService.monteCarlo(backtestId)
       this.monteCarlo = response
       this.chartMonteCarlo()
-    },
-    async settings() {
-      this.settingCurrency = await this.settingService.get("currency")
     },
     categoriesBalance(positions) {
       let categories = []

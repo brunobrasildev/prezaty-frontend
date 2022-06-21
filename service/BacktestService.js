@@ -5,16 +5,16 @@ export default class BacktestService {
   importHtml(values) {
     let formData = new FormData();
     formData.append('file', values.file);
-    return this.http.$post('/backtest/import-html/' + values.setupId, formData, { headers: { tid: this.tid, 'Content-Type': 'multipart/form-data' } })
+    return this.http.$post('/backtest/import-html/' + values.setupId, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
   }
-  bySetupRef(ref) {
-    return this.http.$get('/backtest/setup/' + ref)
+  bySetupId(id) {
+    return this.http.$get('/backtest/setup/' + id)
   }
-  positionsBySetupRef(ref) {
-    return this.http.$get('/backtest/setup/' + ref + '/positions')
+  positionsBySetupId(id) {
+    return this.http.$get('/backtest/setup/' + id + '/positions')
   }
-  performanceMonthBySetupRef(ref) {
-    return this.http.$get('/backtest/setup/' + ref + '/performance-month')
+  performanceMonthBySetupId(id) {
+    return this.http.$get('/backtest/setup/' + id + '/performance-month')
   }
   byPortfolioId(portfolioId) {
     return this.http.$get('/backtest/portfolio/' + portfolioId)
