@@ -12,8 +12,8 @@ export default class PositionService {
     }
     
     if (filters.dateStart != null && filters.dateEnd != null) {
-      query += '&dateStart=' + filters.dateStart
-      query += '&dateEnd=' + filters.dateEnd
+      query += '&dateStart=' + new Date(moment.tz(filters.dateStart).format("YYYY-MM-DD 00:00:00"))
+      query += '&dateEnd=' + new Date(moment.tz(filters.dateEnd).format("YYYY-MM-DD 23:59:59"))
     } else {
       let start = new Date(moment.tz(new Date(), null).format("YYYY-MM-DD 00:00:00"))  
       let end = new Date(moment.tz(new Date(), null).format("YYYY-MM-DD 23:59:59"))
