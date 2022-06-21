@@ -16,10 +16,10 @@
             <Calendar @input="getPosition" placeholder="Data Final" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateEnd" :manualInput="false" />
           </div>
           <div class="p-field p-col-12 p-md-2">
-            <MultiSelect @change="getPosition" v-model="filter.portfolioRefs" :options="portfolios" optionLabel="name" optionValue="ref" placeholder="Portfólio" />
+            <MultiSelect @change="getPosition" v-model="filter.portfolioIds" :options="portfolios" optionLabel="name" optionValue="ref" placeholder="Portfólio" />
           </div>
           <div class="p-field p-col-12 p-md-2">
-            <MultiSelect  @change="getPosition" v-model="filter.setupRefs" :options="setups" optionLabel="name" optionValue="ref" placeholder="Robôs" />
+            <MultiSelect  @change="getPosition" v-model="filter.setupIds" :options="setups" optionLabel="name" optionValue="ref" placeholder="Robôs" />
           </div>
         </div>
       </div>
@@ -296,8 +296,8 @@ export default {
       pt_BR: process.env.PT_BR.CALENDAR,
       filter: {
         tradeMode: 'REAL',
-        portfolioRefs: [],
-        setupRefs: [],
+        portfolioIds: [],
+        setupIds: [],
         dateStart: null,
         dateEnd: null
       }
@@ -323,12 +323,12 @@ export default {
       this.filter.tradeMode.push(this.$route.query.tradeMode)  
     }
 
-    if (this.$route.query.portfolioRefs) {
-      this.filter.portfolioRefs.push(this.$route.query.portfolioRefs)  
+    if (this.$route.query.portfolioIds) {
+      this.filter.portfolioIds.push(this.$route.query.portfolioIds)  
     }
     
-    if (this.$route.query.setupRefs) {
-      this.filter.setupRefs.push(this.$route.query.setupRefs)  
+    if (this.$route.query.setupIds) {
+      this.filter.setupIds.push(this.$route.query.setupIds)  
     }
 
     this.getPosition()
