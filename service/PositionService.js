@@ -12,11 +12,11 @@ export default class PositionService {
       query += '&dateStart=' + filters.dateStart
       query += '&dateEnd=' + filters.dateEnd
     }
-    if (filters.portfolioRefs != null && filters.portfolioRefs != '') {
-      query += '&portfolioRefs=' + filters.portfolioRefs.join(',')
+    if (filters.portfolioIds != null && filters.portfolioIds != '') {
+      query += '&portfolioIds=' + filters.portfolioIds.join(',')
     }
-    if (filters.setupRefs != null && filters.setupRefs != '') {
-      query += '&setupRefs=' + filters.setupRefs.join(',')
+    if (filters.setupIds != null && filters.setupIds != '') {
+      query += '&setupIds=' + filters.setupIds.join(',')
     }
 
     return this.http.$get(query)
@@ -31,11 +31,11 @@ export default class PositionService {
       query += '&dateStart=' + filters.dateStart
       query += '&dateEnd=' + filters.dateEnd
     }
-    if (filters.portfolioRefs != null && filters.portfolioRefs != '') {
-      query += '&portfolioRefs=' + filters.portfolioRefs.join(',')
+    if (filters.portfolioIds != null && filters.portfolioIds != '') {
+      query += '&portfolioIds=' + filters.portfolioIds.join(',')
     }
-    if (filters.setupRefs != null && filters.setupRefs != '') {
-      query += '&setupRefs=' + filters.setupRefs.join(',')
+    if (filters.setupIds != null && filters.setupIds != '') {
+      query += '&setupIds=' + filters.setupIds.join(',')
     }
 
     return this.http.$get(query)
@@ -50,11 +50,11 @@ export default class PositionService {
       query += '&dateStart=' + filters.dateStart
       query += '&dateEnd=' + filters.dateEnd
     }
-    if (filters.portfolioRefs != null && filters.portfolioRefs != '') {
-      query += '&portfolioRefs=' + filters.portfolioRefs.join(',')
+    if (filters.portfolioIds != null && filters.portfolioIds != '') {
+      query += '&portfolioIds=' + filters.portfolioIds.join(',')
     }
-    if (filters.setupRefs != null && filters.setupRefs != '') {
-      query += '&setupRefs=' + filters.setupRefs.join(',')
+    if (filters.setupIds != null && filters.setupIds != '') {
+      query += '&setupIds=' + filters.setupIds.join(',')
     }
 
     return this.http.$get(query)
@@ -69,11 +69,11 @@ export default class PositionService {
       query += '&dateStart=' + filters.dateStart
       query += '&dateEnd=' + filters.dateEnd
     }
-    if (filters.portfolioRefs != null && filters.portfolioRefs != '') {
-      query += '&portfolioRefs=' + filters.portfolioRefs.join(',')
+    if (filters.portfolioIds != null && filters.portfolioIds != '') {
+      query += '&portfolioIds=' + filters.portfolioIds.join(',')
     }
-    if (filters.setupRefs != null && filters.setupRefs != '') {
-      query += '&setupRefs=' + filters.setupRefs.join(',')
+    if (filters.setupIds != null && filters.setupIds != '') {
+      query += '&setupIds=' + filters.setupIds.join(',')
     }
 
     return this.http.$get(query)
