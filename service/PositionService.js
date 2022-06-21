@@ -26,7 +26,9 @@ export default class PositionService {
     }
     if (filters.setupIds != null && filters.setupIds != '') {
       query += '&setupIds=' + filters.setupIds.join(',')
-    }  
+    }
+
+    return query
   }
 
   dashboard(filters) {
