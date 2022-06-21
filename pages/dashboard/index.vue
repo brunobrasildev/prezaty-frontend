@@ -25,24 +25,6 @@
       </div>
     </div>
 
-    <div v-if="dashboard == null" class="mx-auto w-full">
-      <section class="text-gray-600 body-font relative">
-        <div class="container px-5 py-24 mx-auto">
-          <div class="flex flex-col text-center w-full mb-12">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Posições não encontradas</h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Caso não tenha ainda configurado para aparecer o dashboard de suas posições. Você precisa configurar suas contas MT5 na plataforma.</p>
-          </div>
-          <div class="lg:w-1/2 md:w-2/3 mx-auto">
-            <div class="flex flex-wrap -m-2">
-              <div class="p-2 w-full">
-                <button @click="openConfig" class="flex mx-auto text-white bg-blue-600 hover:bg-blue-700 border-0 py-2 px-8 focus:outline-none rounded text-lg">Clique para configurar as contas MT5</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
     <div v-if="dashboard != null" class="mx-auto w-full">
       <div>
         <div class="flex flex-wrap">
@@ -354,7 +336,6 @@ export default {
             this.profits = await this.positionService.profits(this.filter)
             this.chartBalance()
         }    
-
       }
     },
     async tradeModeList() {
