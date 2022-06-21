@@ -16,10 +16,10 @@
             <Calendar @input="getPosition" placeholder="Data Final" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateEnd" :manualInput="false" />
           </div>
           <div class="p-field p-col-12 p-md-2">
-            <MultiSelect @change="getPosition" v-model="filter.portfolioIds" :options="portfolios" optionLabel="name" optionValue="ref" placeholder="Portfólio" />
+            <MultiSelect @change="getPosition" v-model="filter.portfolioIds" :options="portfolios" optionLabel="name" optionValue="id" placeholder="Portfólio" />
           </div>
           <div class="p-field p-col-12 p-md-2">
-            <MultiSelect  @change="getPosition" v-model="filter.setupIds" :options="setups" optionLabel="name" optionValue="ref" placeholder="Robôs" />
+            <MultiSelect  @change="getPosition" v-model="filter.setupIds" :options="setups" optionLabel="name" optionValue="id" placeholder="Robôs" />
           </div>
         </div>
       </div>
