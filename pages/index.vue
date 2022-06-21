@@ -63,7 +63,7 @@ export default {
       try {
         let response = await this.$auth.loginWith("local", { data: this.login });
         if (response.status == 200) {
-          this.$router.push("/expert-advisor");
+          this.$router.push("/dashboard");
         } else {
           this.$toast.add({ severity: "error", detail: "Dados incorretos. Tente novamente.", life: 3000 });
         }
