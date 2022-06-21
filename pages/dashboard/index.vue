@@ -341,11 +341,13 @@ export default {
       this.$router.push('/setting')  
     },
     async getPosition() {
+      this.cleanDash()
+
       if ((this.filter.dateStart == null && this.filter.dateEnd == null) || (this.filter.dateStart != null && this.filter.dateEnd != null)) {        
         this.dashboard = await this.positionService.dashboard(this.filter)
 
         if (this.dashboard == '') {
-            this.dashboard = null
+            this.cleanDash()
         } else {
             this.positions = await this.positionService.byFilters(this.filter)
             this.performanceMonth = await this.positionService.performanceMonth(this.filter)
@@ -366,6 +368,15 @@ export default {
     async getSetupList() {
       let response = await this.setupService.all()
       this.setups = response
+    },
+    cleanDash() {
+      this.dashboard = null
+      this.positions = []
+      this.performanceMonth = []
+      this.profits = []
+      this.lineOptionsBalance = {}
+      this.lineSeriesBalance = []
+      this.years = []     
     },
     categoriesBalance(positions) {
       let categories = [];
