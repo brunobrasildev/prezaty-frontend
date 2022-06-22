@@ -7,6 +7,12 @@ export default class BacktestService {
     formData.append('file', values.file);
     return this.http.$post('/backtest/import-html/' + values.setupId, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
   }
+  delete(id) {
+    return this.http.$delete('/backtest/' + id)
+  }
+  deleteBySetupId(setupId) {
+    return this.http.$delete('/backtest/setup/' + setupId)
+  }
   bySetupId(id) {
     return this.http.$get('/backtest/setup/' + id)
   }
