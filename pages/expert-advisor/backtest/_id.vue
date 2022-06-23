@@ -171,19 +171,19 @@
                 <thead>
                   <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
                     <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Dias de Estagnação</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
+                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Compra</th>
+                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Compra</th>
+                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Venda</th>
+                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Venda</th>
                   </tr>
                 </thead>
                 <tbody class="flex-1 sm:flex-none">
                   <tr class="flex flex-col flex-no wrap sm:table-row">
                     <td class="border border-gray-300 lg:text-center p-1">{{ backtest.stagnationDays }} dia(s)</td>
-                    <td class="border border-gray-300 lg:text-center p-1"></td>
-                    <td class="border border-gray-300 lg:text-center p-1"></td>
-                    <td class="border border-gray-300 lg:text-center p-1"></td>
-                    <td class="border border-gray-300 lg:text-center p-1"></td>
+                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongGain }}</td>
+                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongLoss }}</td>
+                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortGain }}</td>
+                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortLoss }}</td>
                   </tr>
                 </tbody>
               </table>
