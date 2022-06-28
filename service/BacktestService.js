@@ -40,5 +40,8 @@ export default class BacktestService {
   monteCarloPortfolio(portfolioId) {
     return this.http.$get('/backtest/monte-carlo/portfolio/' + portfolioId)
   }
+  profitPeriodBySetupId(setupId, endpoint) {
+    return this.http.$get('/backtest/setup/' + setupId + '/' + endpoint)
+  }
 }
 
