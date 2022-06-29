@@ -346,7 +346,9 @@
             <thead>
               <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
                 <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Período</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Posições</th>
                 <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Rendimento</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Saldo</th>
               </tr>
             </thead>
             <tbody class="flex-1 sm:flex-none">
@@ -355,7 +357,13 @@
                   {{ row.period }}    
                 </td>
                 <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                  {{ row.totalPositions }}    
+                </td>
+                <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
                   <span :class="row.profit >= 0 ? 'text-gray-800' : 'text-red-600 font-semibold'">{{ row.profit | money(settingCurrency.value) }}</span>
+                </td>
+                <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                  <span v-if="row.balance != null">{{ row.balance | money(settingCurrency.value) }}</span>
                 </td>
               </tr>
             </tbody>
