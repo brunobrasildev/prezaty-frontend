@@ -1,21 +1,21 @@
 <template>
   <div class="flex flex-col">
     <div class="my-4 p-grid">
-      <div class="p-col-12 p-md-4">
+      <div class="p-col-12 p-md-3">
         <h3 class="text-gray-700 text-xl font-medium">Dashboard</h3>
       </div>
-      <div class="p-col-12 p-md-8 justify-end">
+      <div class="p-col-12 p-md-9 justify-end">
         <div class="p-fluid p-grid p-formgrid">
-          <div class="p-field p-col-12 p-md-2">
+          <div class="p-field p-col-12 p-md-3">
             <Dropdown @change="getPosition" v-model="filter.tradeMode" :options="tradeModes" optionLabel="text" optionValue="value" placeholder="Ambiente" />
           </div>
-          <div class="p-field p-col-12 p-md-2">
+          <div class="p-field p-col-12 p-md-3">
             <Calendar @input="getPosition" placeholder="Data Inícial" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateStart" :manualInput="false" />
           </div>
-          <div class="p-field p-col-12 p-md-2">
+          <div class="p-field p-col-12 p-md-3">
             <Calendar @input="getPosition" placeholder="Data Final" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateEnd" :manualInput="false" />
           </div>
-          <div class="p-field p-col-12 p-md-2">
+          <div class="p-field p-col-12 p-md-3">
             <MultiSelect  @change="getPosition" v-model="filter.setupIds" :options="setups" optionLabel="name" optionValue="id" placeholder="Robôs" />
           </div>
         </div>
@@ -429,9 +429,10 @@ export default {
     categoriesBalance(positions) {
       let categories = [];
 
+      let i = 1;
       _.forEach(positions, (value) => {
-        let closeTime = new Date(moment.tz(value.closeTime, null).format("YYYY-MM-DD"))
-        categories.push(closeTime)  
+        categories.push(i)
+        i++  
       });
 
       return categories
@@ -469,7 +470,7 @@ export default {
           categories: this.categoriesBalance(this.positions),
           labels: {
             formatter: function(val) {
-              return moment.tz(val, null).format('DD/MM/YYYY')
+              return val
             }
           }
         },

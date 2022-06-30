@@ -1,12 +1,14 @@
 <template>
   <div class="flex flex-col">
     <div class="my-4 p-grid">
-      <div class="p-col-12 p-md-6">
+      <div class="p-col-12 p-md-4">
         <h3 class="text-gray-700 text-xl font-medium">Backtest de {{ setup.name }}</h3>
       </div>
-      <div class="p-col-12 p-md-6  flex justify-end">
+      <div class="p-col-12 p-md-8 flex justify-end">
+        <Calendar @input="getFilter" placeholder="Data Inícial" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateStart" :manualInput="false" />
+        <Calendar @input="getFilter" placeholder="Data Final" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateEnd" :manualInput="false" />
         <FileUpload chooseLabel="Importar backtest (.html)" mode="basic" name="file" :auto="true" :url="urlUpload" accept=".html" @before-send="beforeUpload" @error="errorImport" @upload="importBacktest" />
-        <Button v-if="backtest != null" @click="deleteBacktest()" class="p-button-raised p-button-warning ml-6" label="Deletar" />
+        <Button @click="deleteBacktest()" class="p-button-raised p-button-warning ml-6" label="Deletar" />
       </div>
     </div>
 
@@ -212,12 +214,12 @@
         </TabPanel>
         <TabPanel>
           <template #header>
-            <span @click="showBalanceEvolution()">Evolução Capital</span>
+            <span>Evolução Rendimento</span>
           </template>
           <div v-if="lineSeriesBalance.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
-                <h2 class="text-lg mb-4 font-semibold">Evolução do Capital</h2>
+                <h2 class="text-lg mb-4 font-semibold">Evolução do Rendimento</h2>
                 <apexchart height="350" type="line" :options="lineOptionsBalance" :series="lineSeriesBalance"></apexchart>
               </div>
             </div>
@@ -225,7 +227,7 @@
         </TabPanel>
         <TabPanel>
           <template #header>
-            <span @click="showMonthPerformance()">Perfomance Mensal</span>
+            <span>Perfomance Mensal</span>
           </template>
           <div v-if="backtestPerformanceMonth.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -401,7 +403,11 @@ export default {
       lineSeriesMonteCarlo: [],
       years: [],
       profitsPeriod: [],
-      displayYield: false
+      displayYield: false,
+      filter: {
+        dateStart: null,
+        dateEnd: null
+      }
     }
   },
   head() {
@@ -417,7 +423,6 @@ export default {
   },
   mounted() {
     this.getSetup(this.id)
-    this.getBacktest(this.id)
   },
   methods: {
     cleanBacktest() {
@@ -453,7 +458,8 @@ export default {
       this.setup = response
     },
     async yieldPeriod(endpoint) {
-      let response = await this.backtestService.profitPeriodBySetupId(this.id, endpoint)
+      let filters = _.clone(this.filter)
+      let response = await this.backtestService.profitPeriodByFilter(filters, endpoint)
       this.profitsPeriod = response
       this.displayYield = true
     },
@@ -461,21 +467,30 @@ export default {
       this.displayYield = false
       this.profitsPeriod = []
     },
-    async getBacktest(id) {
-      let response = await this.backtestService.bySetupId(id)
-      if (response) {
-        this.backtest = response
+    async getFilter() {
+      if (this.filter.dateStart != null && this.filter.dateEnd != null) {
+        this.filter.setupId = this.id
+
+        let filters = _.clone(this.filter)
+        let response = await this.backtestService.byFilter(filters)
+        if (response) {
+          this.backtest = response
+          this.getBacktestPositions()
+          this.getBacktestPerformanceMonth()
+        }
       }
     },
-    async getBacktestPositions(id) {
-      let response = await this.backtestService.positionsBySetupId(id)
+    async getBacktestPositions() {
+      let filters = _.clone(this.filter)
+      let response = await this.backtestService.positionsByFilter(filters)
       if (response) {
         this.backtestPositions = response.positions
         this.chartBalance()
       }
     },
-    async getBacktestPerformanceMonth(id) {
-      let response = await this.backtestService.performanceMonthBySetupId(id)
+    async getBacktestPerformanceMonth() {
+      let filters = _.clone(this.filter)
+      let response = await this.backtestService.performanceMonthByFilter(filters)
       if (response) {
         this.backtestPerformanceMonth = response.performanceMonth
       }
@@ -492,9 +507,10 @@ export default {
     categoriesBalance(positions) {
       let categories = []
 
+      let i = 1;
       _.forEach(positions, (value) => {
-        let closeTime = new Date(moment.tz(value.closeTime, null).format("YYYY-MM-DD"))
-        categories.push(closeTime)  
+        categories.push(i)
+        i++  
       });
 
       return categories
@@ -528,14 +544,6 @@ export default {
       })
       return series
     },
-    showBalanceEvolution() {
-      if (this.lineSeriesBalance.length == 0)
-        this.getBacktestPositions(this.id)
-    },
-    showMonthPerformance() {
-      if (this.backtestPerformanceMonth.length == 0)
-        this.getBacktestPerformanceMonth(this.id)
-    },
     showMonteCarlo() {
       if (this.monteCarlo == null)
         this.getMonteCarlo(this.backtest.id)
@@ -549,7 +557,7 @@ export default {
           categories: this.categoriesBalance(this.backtestPositions),
           labels: {
             formatter: function(val) {
-              return moment.tz(val, null).format('DD/MM/YYYY')
+              return val
             }
           }
         },
