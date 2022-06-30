@@ -408,6 +408,7 @@ export default {
       this.setups = response
     },
     async yieldPeriod(endpoint) {
+      let filters = _.clone(this.filter)
       let response = await this.positionService.profitPeriodByFilters(filters, endpoint)
       this.profitsPeriod = response
       this.displayYield = true
