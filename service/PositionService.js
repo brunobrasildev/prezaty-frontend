@@ -47,5 +47,10 @@ export default class PositionService {
     let query = this.queryFilter('/position/profits', filters);
     return this.http.$get(query)
   }
+
+  profitPeriodByFilters(filters, endpoint) {
+    let query = this.queryFilter('/position/' + endpoint, filters);
+    return this.http.$get(query)
+  }
 }
 

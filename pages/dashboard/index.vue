@@ -180,6 +180,26 @@
               </tr>
             </tbody>
           </table>
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Mês</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Semana</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos mês</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-for-date')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-day')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-week-day')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-month')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -263,7 +283,38 @@
           </table>
         </div>
       </div>
-    </div>    
+    </div> 
+
+    <Dialog header="Rendimentos" :style="{ width: '80%' }" :visible.sync="displayYield" :modal="true">
+      <div class="h-80">
+        <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+          <thead>
+            <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+              <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Período</th>
+              <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Posições</th>
+              <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Rendimento</th>
+              <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Saldo</th>
+            </tr>
+          </thead>
+          <tbody class="flex-1 sm:flex-none">
+            <tr v-for="row in profitsPeriod" :key="row.period" class="flex flex-col flex-no wrap sm:table-row">
+              <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                {{ row.period }}    
+              </td>
+              <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                {{ row.totalPositions }}    
+              </td>
+              <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                <span :class="row.profit >= 0 ? 'text-gray-800' : 'text-red-600 font-semibold'">{{ row.profit | money(settingCurrency.value) }}</span>
+              </td>
+              <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
+                <span v-if="row.balance != null">{{ row.balance | money(settingCurrency.value) }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Dialog>   
   </div>
 </template>
 
@@ -291,6 +342,8 @@ export default {
       lineSeriesBalance: [],
       years: [],
       pt_BR: process.env.PT_BR.CALENDAR,
+      profitsPeriod: [],
+      displayYield: false,
       filter: {
         tradeMode: 'REAL',
         setupIds: [],
@@ -353,6 +406,15 @@ export default {
     async getSetupList() {
       let response = await this.setupService.all()
       this.setups = response
+    },
+    async yieldPeriod(endpoint) {
+      let response = await this.positionService.profitPeriodByFilters(filters, endpoint)
+      this.profitsPeriod = response
+      this.displayYield = true
+    },
+    closeDisplayYield() {
+      this.displayYield = false
+      this.profitsPeriod = []
     },
     cleanDash() {
       this.dashboard = null
