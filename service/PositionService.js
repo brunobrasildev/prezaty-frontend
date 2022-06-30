@@ -21,9 +21,6 @@ export default class PositionService {
       query += '&dateEnd=' + end
     }
 
-    if (filters.portfolioIds != null && filters.portfolioIds != '') {
-      query += '&portfolioIds=' + filters.portfolioIds.join(',')
-    }
     if (filters.setupIds != null && filters.setupIds != '') {
       query += '&setupIds=' + filters.setupIds.join(',')
     }

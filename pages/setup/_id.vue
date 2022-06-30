@@ -5,7 +5,7 @@
         <h3 class="text-gray-700 text-xl font-medium">Cadastro de Robô</h3>
       </div>
       <div class="col-span-6 flex justify-end">
-        <nuxt-link to="/expert-advisor" class="h-10 inline-flex px-5 py-2 border border-transparent font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+        <nuxt-link to="/setup" class="h-10 inline-flex px-5 py-2 border border-transparent font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
           Meus Robôs
         </nuxt-link>
       </div>
@@ -160,7 +160,7 @@ export default {
           .save(values)
           .then((response) => {
             this.$toast.add({severity: "success", detail: "O Robô foi salvo com sucesso. Agora já pode fazer o download.", life: 5000})
-            this.$router.push("/expert-advisor")
+            this.$router.push("/setup")
           })
           .catch((error) => {
             if (error.response) {

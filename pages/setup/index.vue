@@ -5,7 +5,7 @@
         <h3 class="text-gray-700 text-xl font-medium">Meus Robôs</h3>
       </div>
       <div class="col-span-6 flex justify-end">
-        <nuxt-link to="/expert-advisor/new" class="h-10 inline-flex px-5 py-2 border border-transparent font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+        <nuxt-link to="/setup/new" class="h-10 inline-flex px-5 py-2 border border-transparent font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
           Novo Robô
         </nuxt-link>
       </div>
@@ -152,13 +152,13 @@ export default {
       }
     },
     newExpertAdvisor() {
-      this.$router.push('/expert-advisor/new')
+      this.$router.push('/setup/new')
     },
     openEdit(row) {
-      this.$router.push('/expert-advisor/' + row.id)
+      this.$router.push('/setup/' + row.id)
     },
     openBacktest(row) {
-      this.$router.push('/expert-advisor/backtest/' + row.id)
+      this.$router.push('/setup/backtest/' + row.id)
     },
     openDashboard(row) {
       this.$router.push('/dashboard/?tradeMode=REAL&setupIds=' + row.id)

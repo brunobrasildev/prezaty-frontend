@@ -37,7 +37,7 @@
                 </div>
               </li>
               <li class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-blue-700 focus:text-blue-700 focus:outline-none">
-                <div @click="openMenu('/expert-advisor', $event)" class="flex items-center">
+                <div @click="openMenu('/setup', $event)" class="flex items-center">
                   <svg class="icon icon-tabler icon-tabler-grid" width="20" height="20" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 429.056 429.056" style="enable-background:new 0 0 429.056 429.056;" xml:space="preserve">
                   <g>
@@ -54,15 +54,6 @@
                   </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                   </svg>
                   <span class="ml-2 font-bold">Meus Robôs</span>
-                </div>
-              </li>
-              <li class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-blue-700 focus:text-blue-700 focus:outline-none">
-                <div @click="openMenu('/portfolio', $event)" class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-grid" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
-                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                  </svg>
-                  <span class="ml-2 font-bold">Portfólio</span>
                 </div>
               </li>
               <li class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-blue-700 focus:text-blue-700 focus:outline-none">
@@ -108,7 +99,7 @@
                 </nuxt-link>
               </div>
               <div class="flex -mb-px mr-8">
-                <nuxt-link to="/expert-advisor" class="no-underline opacity-60 text-gray-700 md:opacity-60 flex items-center py-4 border-b border-transparent hover:opacity-60 md:hover:border-gray-700">
+                <nuxt-link to="/setup" class="no-underline opacity-60 text-gray-700 md:opacity-60 flex items-center py-4 border-b border-transparent hover:opacity-60 md:hover:border-gray-700">
                   <svg class="h-6 w-6 fill-current mr-2" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 429.056 429.056" style="enable-background:new 0 0 429.056 429.056;" xml:space="preserve">
                   <g>
@@ -125,15 +116,6 @@
                   </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                   </svg>
                   Meus Robôs
-                </nuxt-link>
-              </div>
-              <div class="flex -mb-px mr-8">
-                <nuxt-link to="/portfolio" class="no-underline opacity-60 text-gray-700 md:opacity-60 flex items-center py-4 border-b border-transparent hover:opacity-60 md:hover:border-gray-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
-                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                  </svg>
-                  Portfólio
                 </nuxt-link>
               </div>
             </div>

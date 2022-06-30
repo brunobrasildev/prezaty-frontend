@@ -22,23 +22,8 @@ export default class BacktestService {
   performanceMonthBySetupId(id) {
     return this.http.$get('/backtest/setup/' + id + '/performance-month')
   }
-  byPortfolioId(portfolioId) {
-    return this.http.$get('/backtest/portfolio/' + portfolioId)
-  }
-  positionsByPortfolioId(portfolioId) {
-    return this.http.$get('/backtest/portfolio/' + portfolioId + '/positions')
-  }
-  performanceMonthByPortfolioId(portfolioId) {
-    return this.http.$get('/backtest/portfolio/' + portfolioId + '/performance-month')
-  }
-  profitsByPortfolioId(portfolioId) {
-    return this.http.$get('/backtest/portfolio/' + portfolioId + '/profits')
-  }
   monteCarlo(id) {
     return this.http.$get('/backtest/' + id + '/monte-carlo')
-  }
-  monteCarloPortfolio(portfolioId) {
-    return this.http.$get('/backtest/monte-carlo/portfolio/' + portfolioId)
   }
   profitPeriodBySetupId(setupId, endpoint) {
     return this.http.$get('/backtest/setup/' + setupId + '/' + endpoint)

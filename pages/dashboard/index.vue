@@ -16,9 +16,6 @@
             <Calendar @input="getPosition" placeholder="Data Final" :locale="pt_BR" dateFormat="dd/mm/yy" v-model="filter.dateEnd" :manualInput="false" />
           </div>
           <div class="p-field p-col-12 p-md-2">
-            <MultiSelect @change="getPosition" v-model="filter.portfolioIds" :options="portfolios" optionLabel="name" optionValue="id" placeholder="Portfólio" />
-          </div>
-          <div class="p-field p-col-12 p-md-2">
             <MultiSelect  @change="getPosition" v-model="filter.setupIds" :options="setups" optionLabel="name" optionValue="id" placeholder="Robôs" />
           </div>
         </div>
@@ -272,7 +269,6 @@
 
 <script>
 import PositionService from "~/service/PositionService.js"
-import PortfolioService from "~/service/PortfolioService.js"
 import SetupService from "~/service/SetupService.js"
 import EnumService from "~/service/EnumService.js"
 import _ from "lodash"
@@ -288,7 +284,6 @@ export default {
       positions: [],
       performanceMonth: [],
       profits: [],
-      portfolios: [],
       setups: [],
       tradeModes: [],
       settingCurrency: {value:'BRL'},
@@ -298,7 +293,6 @@ export default {
       pt_BR: process.env.PT_BR.CALENDAR,
       filter: {
         tradeMode: 'REAL',
-        portfolioIds: [],
         setupIds: [],
         dateStart: null,
         dateEnd: null
@@ -311,12 +305,10 @@ export default {
       }
   },
   positionService: null,
-  portfolioService: null,
   setupService: null,
   enumService: null,
   created() {
     this.positionService = new PositionService(this.$axios, this.$auth)
-    this.portfolioService = new PortfolioService(this.$axios, this.$auth)
     this.setupService = new SetupService(this.$axios, this.$auth)
     this.enumService = new EnumService(this.$axios, this.$auth)
   },
@@ -324,17 +316,12 @@ export default {
     if (this.$route.query.tradeMode) {
       this.filter.tradeMode.push(this.$route.query.tradeMode)  
     }
-
-    if (this.$route.query.portfolioIds) {
-      this.filter.portfolioIds.push(this.$route.query.portfolioIds)  
-    }
     
     if (this.$route.query.setupIds) {
       this.filter.setupIds.push(this.$route.query.setupIds)  
     }
 
     this.getPosition()
-    this.getPortfolioList()
     this.getSetupList()  
     this.tradeModeList()    
   },
@@ -362,10 +349,6 @@ export default {
     async tradeModeList() {
       let response = await this.enumService.get('trade-mode')
       this.tradeModes = response
-    },
-    async getPortfolioList() {
-      let response = await this.portfolioService.all()
-      this.portfolios = response
     },
     async getSetupList() {
       let response = await this.setupService.all()
