@@ -56,7 +56,7 @@ export default {
     {src:'~/plugins/filter.js', mode: 'client'},
     {src:'~/plugins/directive.js', mode: 'client'},
     {src:'~/plugins/axios.js', mode: 'client'},
-    {src:'~/plugins/apexcharts.js', mode: 'client'},
+    {src:'~/plugins/gchart.js', mode: 'client'},
     {src:'~/plugins/lightbox.js', mode: 'client', ssr: false}
   ],
   /*

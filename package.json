@@ -48,6 +48,7 @@
     "v-money": "^0.8.1",
     "vee-validate": "^3.3.8",
     "vue-apexcharts": "^1.6.1",
+    "vue-google-charts": "^1.1.0",
     "vue-mailchimp-email-signup-form": "^1.1.2",
     "vue-scrollto": "^2.20.0",
     "vue-silentbox": "^2.4.5",

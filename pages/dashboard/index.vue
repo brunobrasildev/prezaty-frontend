@@ -207,8 +207,12 @@
     <div v-if="dashboard != null" class="my-2 sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
-          <h2 class="text-lg mb-4 font-semibold">Evolução do Capital</h2>
-          <apexchart height="350" type="line" :options="lineOptionsBalance" :series="lineSeriesBalance"></apexchart>
+          <h2 class="text-lg mb-4 font-semibold">Rendimento</h2>
+          <GChart
+            type="LineChart"
+            :data="chartBalanceData"
+            :options="chartBalanceOptions"
+          />
         </div>
       </div>
     </div>
@@ -338,8 +342,6 @@ export default {
       setups: [],
       tradeModes: [],
       settingCurrency: {value:'BRL'},
-      lineOptionsBalance: {},
-      lineSeriesBalance: [],
       years: [],
       pt_BR: process.env.PT_BR.CALENDAR,
       profitsPeriod: [],
@@ -349,6 +351,11 @@ export default {
         setupIds: [],
         dateStart: null,
         dateEnd: null
+      },
+      chartBalanceData: [],
+      chartBalanceOptions: {
+        width: 1200,
+        height: 400,
       }
     }
   },
@@ -395,7 +402,7 @@ export default {
             this.positions = await this.positionService.byFilters(filters)
             this.performanceMonth = await this.positionService.performanceMonth(filters)
             this.profits = await this.positionService.profits(filters)
-            this.chartBalance()
+            this.dataBalance(this.positions)
         }    
       }
     },
@@ -422,64 +429,18 @@ export default {
       this.positions = []
       this.performanceMonth = []
       this.profits = []
-      this.lineOptionsBalance = {}
-      this.lineSeriesBalance = []
       this.years = []     
     },
-    categoriesBalance(positions) {
-      let categories = [];
-
+    dataBalance(positions) {
       let i = 1;
+      this.chartBalanceData.push(["Posição","Rendimento"]);
+      let balance = 0
       _.forEach(positions, (value) => {
-        categories.push(i)
+        balance += value.profit
+        this.chartBalanceData.push([i, balance])
         i++  
       });
-
-      return categories
-    },
-    seriesBalance(positions) {
-      let series = []
-      let totalBalance = 0
-      _.forEach(positions, (value) => {
-        totalBalance += value.profit
-        series.push(numeral(totalBalance).format('0.00'))
-      })
-
-      return series
-    },
-    chartBalance() {
-      let series = []
-
-      _.forEach(this.profits, (p) => {
-        series.push({
-          name: p[0].setupName,
-          data: this.seriesBalance(p)
-        })  
-      })
-
-      series.push({
-        name: 'Portfólio',
-        data: this.seriesBalance(this.positions)
-      })
-
-      this.lineOptionsBalance = {
-        chart: {
-          id: 'chart-balance'
-        },
-        xaxis: {
-          categories: this.categoriesBalance(this.positions),
-          labels: {
-            formatter: function(val) {
-              return val
-            }
-          }
-        },
-        stroke: {
-          width: 2
-        }
-      }
-      this.lineSeriesBalance = series    
-    }
+    }    
   }  
 }
 </script>

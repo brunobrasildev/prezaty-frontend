@@ -29,19 +29,6 @@
                       <span class="font-semibold text-xl text-red-700" v-if="backtest.profit <= 0">{{ backtest.profit | money(settingCurrency.value) }}</span>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-600 mt-4">
-                    <span class="mr-2 text-green-500" v-if="backtest.profitPercent > 0">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 float-left" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                      </svg>
-                      {{ backtest.profitPercent | float }}% </span>
-                    <span class="mr-2 text-red-500" v-if="backtest.profitPercent <= 0">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 float-left" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                      </svg> 
-                      {{ backtest.profitPercent | float }}% </span>
-                    <span class="whitespace-nowrap">do deposito</span>
-                  </p>
                 </div>              
               </div>
             </div>
@@ -74,11 +61,6 @@
                       <span class="font-semibold text-xl">{{ backtest.drawdownValue |  money(settingCurrency.value) }}</span>
                     </div>
                   </div>
-                  <p class="text-s mt-4">
-                    <span class="mr-2">
-                      {{ backtest.drawdownPercent | float }}% 
-                    </span>
-                  </p>
                 </div>              
               </div>
             </div>
@@ -216,13 +198,12 @@
           <template #header>
             <span>Evolução Rendimento</span>
           </template>
-          <div v-if="lineSeriesBalance.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
-                <h2 class="text-lg mb-4 font-semibold">Evolução do Rendimento</h2>
-                <apexchart height="350" type="line" :options="lineOptionsBalance" :series="lineSeriesBalance"></apexchart>
-              </div>
-            </div>
+          <div v-if="chartBalanceData.length > 0">
+            <GChart
+              type="LineChart"
+              :data="chartBalanceData"
+              :options="chartBalanceOptions"
+            />
           </div>
         </TabPanel>
         <TabPanel>
@@ -299,46 +280,6 @@
             </div>
           </div>
         </TabPanel>
-        <TabPanel>
-          <template #header>
-            <span @click="showMonteCarlo()">Monte Carlo</span>
-          </template>
-          <div v-if="monteCarlo != null" class="my-2 sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
-                <h2 class="text-lg mb-4 font-semibold">Monte Carlo</h2>
-                <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                  <thead>
-                    <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                      <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Melhor Resultado</th>
-                      <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Pior Resultado</th>
-                      <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">Médias dos Resultados</th>
-                      <th class="border border-gray-300 p-1 lg:text-center lg:w-1/4">% Lucro das Simulações</th>
-                    </tr>
-                  </thead>
-                  <tbody class="flex-1 sm:flex-none">
-                    <tr class="flex flex-col flex-no wrap sm:table-row">
-                      <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
-                        <span :class="monteCarlo.bestResult >= 0 ? 'text-gray-800' : 'text-red-800'">{{ monteCarlo.bestResult | money(settingCurrency.value) }}</span>  
-                      </td>
-                      <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
-                        <span :class="monteCarlo.worstResult >= 0 ? 'text-gray-800' : 'text-red-800'">{{ monteCarlo.worstResult | money(settingCurrency.value) }}</span>  
-                      </td>
-                      <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
-                        <span :class="monteCarlo.medianResult >= 0 ? 'text-gray-800' : 'text-red-800'">{{ monteCarlo.medianResult | money(settingCurrency.value) }}</span>  
-                      </td>
-                      <td class="border border-gray-300 lg:text-center p-1 lg:w-1/4">
-                        <span :class="monteCarlo.percentResult >= 0 ? 'text-gray-800' : 'text-red-800'">{{ monteCarlo.percentResult | float }}%</span>  
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                
-                <apexchart height="350" type="line" :options="lineOptionsMonteCarlo" :series="lineSeriesMonteCarlo"></apexchart>
-              </div>
-            </div>
-          </div>
-        </TabPanel>
       </TabView>
 
 
@@ -380,8 +321,6 @@
 import SetupService from "~/service/SetupService.js"
 import BacktestService from "~/service/BacktestService.js"
 import _ from "lodash"
-import * as moment from  "moment-timezone"
-import * as numeral  from  "numeral"
 
 export default {
   middleware: "auth",
@@ -397,16 +336,17 @@ export default {
       backtestPerformanceMonth: [],
       monteCarlo: null,
       settingCurrency: {value:'BRL'},
-      lineOptionsBalance: {},
-      lineOptionsMonteCarlo: {},
-      lineSeriesBalance: [],
-      lineSeriesMonteCarlo: [],
       years: [],
       profitsPeriod: [],
       displayYield: false,
       filter: {
         dateStart: null,
         dateEnd: null
+      },
+      chartBalanceData: [],
+      chartBalanceOptions: {
+        width: 1200,
+        height: 400,
       }
     }
   },
@@ -429,11 +369,6 @@ export default {
       this.backtest = null
       this.backtestPositions = []
       this.backtestPerformanceMonth = []
-      this.monteCarlo = null
-      this.lineOptionsBalance = {}
-      this.lineOptionsMonteCarlo = {}
-      this.lineSeriesBalance = []
-      this.lineSeriesMonteCarlo = []
       this.years = []
     },
     beforeUpload(request) {
@@ -485,7 +420,7 @@ export default {
       let response = await this.backtestService.positionsByFilter(filters)
       if (response) {
         this.backtestPositions = response.positions
-        this.chartBalance()
+        this.dataBalance(response.positions)
       }
     },
     async getBacktestPerformanceMonth() {
@@ -495,116 +430,19 @@ export default {
         this.backtestPerformanceMonth = response.performanceMonth
       }
     },
-    async getMonteCarlo(backtestId) {
-      let response = await this.backtestService.monteCarlo(backtestId)
-      this.monteCarlo = response
-      this.chartMonteCarlo()
-    },
     async deleteBacktest() {
       let response = await this.backtestService.deleteBySetupId(this.id)
       this.cleanBacktest()
     },
-    categoriesBalance(positions) {
-      let categories = []
-
+    dataBalance(positions) {
       let i = 1;
+      this.chartBalanceData.push(["Posição","Rendimento"]);
+      let balance = 0
       _.forEach(positions, (value) => {
-        categories.push(i)
+        balance += value.profit
+        this.chartBalanceData.push([i, balance])
         i++  
       });
-
-      return categories
-    },
-    categoriesMonteCarlo(prices) {
-      let categories = [];
-      let i = 1;
-      _.forEach(prices[0].prices, (price) => {
-        categories.push(i)  
-        i++;
-      });
-
-      return categories
-    },
-    seriesBalance(positions) {
-      let series = []
-      let totalBalance = 0
-      _.forEach(positions, (value) => {
-        totalBalance += value.profit
-        series.push(numeral(totalBalance).format('0.00'))
-      })
-
-      return series
-    },
-    seriesMonteCarlo(prices) {
-      let series = []
-      let balance = 0;
-      _.forEach(prices, (price) => {
-        balance += price
-        series.push(numeral(balance).format('0.00'))
-      })
-      return series
-    },
-    showMonteCarlo() {
-      if (this.monteCarlo == null)
-        this.getMonteCarlo(this.backtest.id)
-    },
-    chartBalance() {
-      this.lineOptionsBalance = {
-        chart: {
-          id: 'chart-balance'
-        },
-        xaxis: {
-          categories: this.categoriesBalance(this.backtestPositions),
-          labels: {
-            formatter: function(val) {
-              return val
-            }
-          }
-        },
-        stroke: {
-          width: 2
-        }
-      }
-      this.lineSeriesBalance = [{
-        name: 'Capital',
-        data: this.seriesBalance(this.backtestPositions)
-      }]    
-    },
-    chartMonteCarlo() {
-      let categories = this.categoriesMonteCarlo(this.monteCarlo.pricesList)
-      
-      this.lineOptionsMonteCarlo = {
-        chart: {
-          id: 'chart-montecarlo',
-          animations: { enabled: false },
-          toolbar: { show: false },
-          zoom: { enabled: false }
-        },
-        xaxis: {
-          categories: categories,
-          labels: {
-            show: false,
-          }  
-        },
-        stroke: {
-          width: 1
-        },
-        legend: {
-          show: false,
-        },
-        tooltip: {
-          enabled: false,
-        }  
-      }
-      
-      this.lineSeriesMonteCarlo = []
-      _.forEach(this.monteCarlo.pricesList, (value, key) => {
-        let data = {
-          name: 'Simulação - ' + (key + 1),
-          data: this.seriesMonteCarlo(value.prices)
-        }
-        this.lineSeriesMonteCarlo.push(data)
-      })
     }
   }  
 }
