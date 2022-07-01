@@ -13,275 +13,266 @@
     </div>
 
     <div v-if="backtest != null" class="mx-auto w-full">
-      <TabView>
-        <TabPanel>
-          <template #header>
-            <span>Métricas</span>
-          </template>
-          <div class="flex flex-wrap">
-            <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-              <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                <div class="flex-auto p-4">
-                  <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                      <h5 class="text-gray-600 uppercase font-bold text-xs">LUCRO</h5>
-                      <span class="font-semibold text-xl text-green-700" v-if="backtest.profit > 0">{{ backtest.profit | money(settingCurrency.value) }}</span>
-                      <span class="font-semibold text-xl text-red-700" v-if="backtest.profit <= 0">{{ backtest.profit | money(settingCurrency.value) }}</span>
-                    </div>
-                  </div>
-                </div>              
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-gray-600 uppercase font-bold text-xs">LUCRO</h5>
+                  <span class="font-semibold text-xl text-green-700" v-if="backtest.profit > 0">{{ backtest.profit | money(settingCurrency.value) }}</span>
+                  <span class="font-semibold text-xl text-red-700" v-if="backtest.profit <= 0">{{ backtest.profit | money(settingCurrency.value) }}</span>
+                </div>
               </div>
-            </div>
-            <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-              <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                <div class="flex-auto p-4">
-                  <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                      <h5 class="text-gray-600 uppercase font-bold text-xs">FATOR LUCRO</h5>
-                      <span class="font-semibold text-xl">{{ backtest.profitFactor | float }}</span>
-                    </div>
-                  </div>
-                  <p class="text-sm text-gray-600 mt-4">
-                    <span class="mr-2 text-green-500">
-                      {{ backtest.grossProfit | money(settingCurrency.value) }} ganho bruto
-                    </span><br>
-                    <span class="mr-2 text-red-500">
-                      {{ backtest.grossLoss | money(settingCurrency.value) }} perda bruta 
-                    </span>
-                  </p>
-                </div>              
-              </div>
-            </div>
-            <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-              <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                <div class="flex-auto p-4">
-                  <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                      <h5 class="text-gray-600 uppercase font-bold text-xs">DRAWDOWN</h5>
-                      <span class="font-semibold text-xl">{{ backtest.drawdownValue |  money(settingCurrency.value) }}</span>
-                    </div>
-                  </div>
-                </div>              
-              </div>
-            </div>
-            <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-              <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                <div class="flex-auto p-4">
-                  <div class="flex flex-wrap">
-                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                      <h5 class="text-gray-600 uppercase font-bold text-xs">ASSERTIVIDADE</h5>
-                      <span class="font-semibold text-xl">{{ backtest.assertivenessPercent | float }}%</span>
-                    </div>
-                  </div>
-                  <p class="text-sm text-gray-600 mt-4">
-                    <span class="mr-2 text-green-500">
-                      {{ backtest.qtyGain }} ganho(s) 
-                    </span>
-                    <span class="mr-2 text-red-500">
-                      {{ backtest.qtyLoss }} perda(s) 
-                    </span>
-                  </p>
-                  <p class="text-sm text-gray-600 mt-4">
-                    {{ backtest.totalPositions }} posições 
-                  </p>
-                </div>              
-              </div>
-            </div>
+            </div>              
           </div>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-gray-600 uppercase font-bold text-xs">FATOR LUCRO</h5>
+                  <span class="font-semibold text-xl">{{ backtest.profitFactor | float }}</span>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mt-4">
+                <span class="mr-2 text-green-500">
+                  {{ backtest.grossProfit | money(settingCurrency.value) }} ganho bruto
+                </span><br>
+                <span class="mr-2 text-red-500">
+                  {{ backtest.grossLoss | money(settingCurrency.value) }} perda bruta 
+                </span>
+              </p>
+            </div>              
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-gray-600 uppercase font-bold text-xs">DRAWDOWN</h5>
+                  <span class="font-semibold text-xl">{{ backtest.drawdownValue |  money(settingCurrency.value) }}</span>
+                </div>
+              </div>
+            </div>              
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <div class="h-36 relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-gray-600 uppercase font-bold text-xs">ASSERTIVIDADE</h5>
+                  <span class="font-semibold text-xl">{{ backtest.assertivenessPercent | float }}%</span>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mt-4">
+                <span class="mr-2 text-green-500">
+                  {{ backtest.qtyGain }} ganho(s) 
+                </span>
+                <span class="mr-2 text-red-500">
+                  {{ backtest.qtyLoss }} perda(s) 
+                </span>
+              </p>
+              <p class="text-sm text-gray-600 mt-4">
+                {{ backtest.totalPositions }} posições 
+              </p>
+            </div>              
+          </div>
+        </div>
+      </div>
 
-          <div v-if="backtest != null" class="my-2 sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Fator de Recuperação</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Payoff</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Compras</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Vendas</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo Ganho na Posição</th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.recoveryFactor | float }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.payoff | float }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.longPositions }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.shortPositions }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxGain | money(settingCurrency.value) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Ganhos Consecutivos</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Perdas Consecutivas</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Ganhos</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Perdas</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de Perda na Posição</th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.consecutiveGain }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.consecutiveLoss }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyGain }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLoss }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxLoss | money(settingCurrency.value) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Posições por Dia</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Ganhos por Dia</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Perdas por Dia</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de ganho por Dia</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de perda por Dia</th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDay }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDayGain }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDayLoss }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxDayGain | money(settingCurrency.value) }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxDayLoss | money(settingCurrency.value) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Dias de Estagnação</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Compra</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Compra</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Venda</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Venda</th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.stagnationDays }} dia(s)</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongGain }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongLoss }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortGain }}</td>
-                    <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortLoss }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos por Dia</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Mês</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Semana</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos mês</th>
-                    <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-for-date')" label="Abrir" class="p-button-link" /></td>
-                    <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-day')" label="Abrir" class="p-button-link" /></td>
-                    <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-week-day')" label="Abrir" class="p-button-link" /></td>
-                    <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-month')" label="Abrir" class="p-button-link" /></td>
-                    <td class="border border-gray-300 lg:text-center p-1"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </TabPanel>
-        <TabPanel>
-          <template #header>
-            <span>Evolução Rendimento</span>
-          </template>
-          <div v-if="chartBalanceData.length > 0">
-            <GChart
-              type="LineChart"
-              :data="chartBalanceData"
-              :options="chartBalanceOptions"
-            />
-          </div>
-        </TabPanel>
-        <TabPanel>
-          <template #header>
-            <span>Perfomance Mensal</span>
-          </template>
-          <div v-if="backtestPerformanceMonth.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <h2 class="text-lg mb-4 font-semibold">Perfomance Mensal</h2>
-              <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
-                <thead>
-                  <tr v-for="(performance, index) in backtestPerformanceMonth" :key="index" class="font-bold text-left uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
-                    <th class="border border-gray-300 p-1">Ano</th>
-                    <th class="border border-gray-300 p-1">Janeiro</th>
-                    <th class="border border-gray-300 p-1">Fevereiro</th>
-                    <th class="border border-gray-300 p-1">Março</th>
-                    <th class="border border-gray-300 p-1">Abril</th>
-                    <th class="border border-gray-300 p-1">Maio</th>
-                    <th class="border border-gray-300 p-1">Junho</th>
-                    <th class="border border-gray-300 p-1">Julho</th>
-                    <th class="border border-gray-300 p-1">Agosto</th>
-                    <th class="border border-gray-300 p-1">Setembro</th>
-                    <th class="border border-gray-300 p-1">Outubro</th>
-                    <th class="border border-gray-300 p-1">Novembro</th>
-                    <th class="border border-gray-300 p-1">Dezembro</th>
-                    <th class="border border-gray-300 p-1">Rendimento</th>
-                  </tr>
-                </thead>
-                <tbody class="flex-1 sm:flex-none">
-                  <tr v-for="(performance, index) in backtestPerformanceMonth" :key="index" class="flex flex-col flex-no wrap sm:table-row">
-                    <td class="border border-gray-300 p-1 font-semibold" scope="row">{{ performance.year }}</td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.jan >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jan | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.fev >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.fev | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.mar >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.mar | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.abr >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.abr | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.mai >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.mai | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.jun >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jun | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.jul >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jul | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.ago >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.ago | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.set >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.set | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.out >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.out | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.nov >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.nov | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.dez >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.dez | money(settingCurrency.value) }}</span>
-                    </td>
-                    <td class="border border-gray-300 p-1">
-                      <span :class="performance.profitValue >= 0 ? 'text-green-800 font-bold' : 'text-red-800 font-bold'">{{ performance.profitValue | money(settingCurrency.value) }}</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>          
-            </div>
-          </div>
-        </TabPanel>
-      </TabView>
+      <div v-if="backtest != null" class="my-2 sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Fator de Recuperação</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Payoff</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Compras</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Vendas</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo Ganho na Posição</th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.recoveryFactor | float }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.payoff | float }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.longPositions }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.shortPositions }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxGain | money(settingCurrency.value) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Ganhos Consecutivos</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Perdas Consecutivas</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Ganhos</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant. Perdas</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de Perda na Posição</th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.consecutiveGain }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.consecutiveLoss }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyGain }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLoss }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxLoss | money(settingCurrency.value) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Posições por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Ganhos por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Quant Max Perdas por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de ganho por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Máximo de perda por Dia</th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDay }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDayGain }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyMaxPositionDayLoss }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxDayGain | money(settingCurrency.value) }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.maxDayLoss | money(settingCurrency.value) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Dias de Estagnação</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Compra</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Compra</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Ganhos na Venda</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Total Perdas na Venda</th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.stagnationDays }} dia(s)</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongGain }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyLongLoss }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortGain }}</td>
+                <td class="border border-gray-300 lg:text-center p-1">{{ backtest.qtyShortLoss }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+            <thead>
+              <tr class="font-bold uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos por Dia</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Mês</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos dia Semana</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5">Rendimentos mês</th>
+                <th class="border border-gray-300 p-1 lg:text-center lg:w-1/5"></th>
+              </tr>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+              <tr class="flex flex-col flex-no wrap sm:table-row">
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-for-date')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-day')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-week-day')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"><Button @click="yieldPeriod('profit-group-month')" label="Abrir" class="p-button-link" /></td>
+                <td class="border border-gray-300 lg:text-center p-1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
+      <div v-if="chartBalanceData.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
+            <h2 class="text-lg mb-4 font-semibold">Rendimento</h2>
+              <GChart
+                type="LineChart"
+                :data="chartBalanceData"
+                :options="chartBalanceOptions"
+              />
+          </div>
+        </div>
+      </div>
+
+      <div v-if="backtestPerformanceMonth.length > 0" class="my-2 sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow p-5 bg-white border-b border-gray-200 sm:rounded-lg">
+            <h2 class="text-lg mb-4 font-semibold">Perfomance Mensal</h2>
+            <table class="w-full flex flex-row flex-no-wrap overflow-hidden text-xs">
+              <thead>
+                <tr v-for="(performance, index) in backtestPerformanceMonth" :key="index" class="font-bold text-left uppercase bg-gray-200 text-gray-600 flex flex-col flex-no wrap sm:table-row ">
+                  <th class="border border-gray-300 p-1">Ano</th>
+                  <th class="border border-gray-300 p-1">Janeiro</th>
+                  <th class="border border-gray-300 p-1">Fevereiro</th>
+                  <th class="border border-gray-300 p-1">Março</th>
+                  <th class="border border-gray-300 p-1">Abril</th>
+                  <th class="border border-gray-300 p-1">Maio</th>
+                  <th class="border border-gray-300 p-1">Junho</th>
+                  <th class="border border-gray-300 p-1">Julho</th>
+                  <th class="border border-gray-300 p-1">Agosto</th>
+                  <th class="border border-gray-300 p-1">Setembro</th>
+                  <th class="border border-gray-300 p-1">Outubro</th>
+                  <th class="border border-gray-300 p-1">Novembro</th>
+                  <th class="border border-gray-300 p-1">Dezembro</th>
+                  <th class="border border-gray-300 p-1">Rendimento</th>
+                </tr>
+              </thead>
+              <tbody class="flex-1 sm:flex-none">
+                <tr v-for="(performance, index) in backtestPerformanceMonth" :key="index" class="flex flex-col flex-no wrap sm:table-row">
+                  <td class="border border-gray-300 p-1 font-semibold" scope="row">{{ performance.year }}</td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.jan >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jan | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.fev >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.fev | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.mar >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.mar | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.abr >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.abr | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.mai >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.mai | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.jun >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jun | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.jul >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.jul | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.ago >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.ago | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.set >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.set | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.out >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.out | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.nov >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.nov | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.dez >= 0 ? 'text-gray-800' : 'text-red-800'">{{ performance.dez | money(settingCurrency.value) }}</span>
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <span :class="performance.profitValue >= 0 ? 'text-green-800 font-bold' : 'text-red-800 font-bold'">{{ performance.profitValue | money(settingCurrency.value) }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>          
+          </div>
+        </div>
+      </div>
 
       <Dialog header="Rendimentos" :style="{ width: '80%' }" :visible.sync="displayYield" :modal="true">
         <div class="h-80">
