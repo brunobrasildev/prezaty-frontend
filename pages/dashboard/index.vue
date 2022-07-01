@@ -430,6 +430,7 @@ export default {
       this.years = []     
     },
     dataBalance(positions) {
+      this.chartBalanceData = []
       let i = 1;
       this.chartBalanceData.push(["Posição","Rendimento"]);
       let balance = 0

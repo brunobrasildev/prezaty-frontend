@@ -429,6 +429,7 @@ export default {
       this.$toast.add({severity: "success", detail: "O backtest foi deletado.", life: 5000})
     },
     dataBalance(positions) {
+      this.chartBalanceData = []
       let i = 1;
       this.chartBalanceData.push(["Posição","Rendimento"]);
       let balance = 0
