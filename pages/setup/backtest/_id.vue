@@ -426,6 +426,7 @@ export default {
     async deleteBacktest() {
       let response = await this.backtestService.deleteBySetupId(this.id)
       this.cleanBacktest()
+      this.$toast.add({severity: "success", detail: "O backtest foi deletado.", life: 5000})
     },
     dataBalance(positions) {
       let i = 1;
