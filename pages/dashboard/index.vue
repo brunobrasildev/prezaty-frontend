@@ -327,8 +327,6 @@ import PositionService from "~/service/PositionService.js"
 import SetupService from "~/service/SetupService.js"
 import EnumService from "~/service/EnumService.js"
 import _ from "lodash"
-import * as moment from  "moment-timezone"
-import * as numeral  from  "numeral"
 
 export default {
   middleware: "auth",
